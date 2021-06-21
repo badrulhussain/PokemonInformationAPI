@@ -20,16 +20,15 @@ namespace PokemonInformationAPI.Controllers
             this._pokemonSpeciesService = pokemonSpeciesService;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         [HttpGet("{name}")]
-        public async Task<PokemonInfoDTO> Get(string name)        
+        public async Task<ActionResult<PokemonInfoDTO>> Get(string name)
         {
-            return await _pokemonSpeciesService.Get(name);
+            var pokemonInfoDTO = await _pokemonSpeciesService.Get(name);
+
+            if (pokemonInfoDTO == null)
+                return NotFound();
+
+            return pokemonInfoDTO;
         }
     }
 }

@@ -46,8 +46,7 @@ namespace PokemonFuntranslationAPI.Services
 
             pokeInfoDTO.Description = pokeInfoDTO.Description
                 .Replace("\n", " ")
-                .Replace("\f", " ")
-                .Replace(" ", "%");
+                .Replace("\f", " ");
 
             if (pokeInfoDTO.IsLegendary || pokeInfoDTO.Habitat == "cave")
                 pokeInfoDTO.Description = await _funtranslationsService

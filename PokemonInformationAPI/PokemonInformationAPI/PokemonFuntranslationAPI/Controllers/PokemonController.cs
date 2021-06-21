@@ -20,17 +20,15 @@ namespace PokemonFuntranslationAPI.Controllers
             this._pokemonSpeciesService = pokemonSpeciesService;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-
         [HttpGet("translated")]
-        public async Task<PokemonInfoDTO> Get(string name)
+        public async Task<ActionResult<PokemonInfoDTO>> Get(string name)
         {
-            return await _pokemonSpeciesService.GetWithTranslation(name);
+            var pokemonInfoDTO = await _pokemonSpeciesService.GetWithTranslation(name);
+
+            if (pokemonInfoDTO == null)
+                return NotFound();
+
+            return pokemonInfoDTO;
         }
     }
 }

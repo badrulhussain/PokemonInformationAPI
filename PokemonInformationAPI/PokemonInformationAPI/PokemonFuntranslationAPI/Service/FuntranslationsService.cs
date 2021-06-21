@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokemonFuntranslationAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -18,14 +19,18 @@ namespace PokemonFuntranslationAPI.Services
 
         public async Task<string> GetYoda(string Description)
         {
-            return await _httpClientFactory.CreateClient("FunTranslation")
-                .GetFromJsonAsync<string>($"yoda.json?text={Description}");
+            var translationModel = await _httpClientFactory.CreateClient("FunTranslation")
+                .GetFromJsonAsync<FunTranslationModel>($"yoda.json?text={Description}");
+
+            return translationModel.contents.translated;
         }
 
         public async Task<string> GetShakespeare(string Description)
         {
-            return await _httpClientFactory.CreateClient("FunTranslation")
-                .GetFromJsonAsync<string>($"shakespeare.json?text={Description}");
+            var translationModel = await _httpClientFactory.CreateClient("FunTranslation")
+                .GetFromJsonAsync<FunTranslationModel>($"shakespeare.json?text={Description}");
+
+            return translationModel.contents.translated;
         }
     }
 }

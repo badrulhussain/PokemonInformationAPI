@@ -30,7 +30,10 @@ namespace PokemonInformationAPI.Services
             {
                 Name = pokeInfoModel.name,
                 Description = pokeInfoModel.flavor_text_entries
-                    .FirstOrDefault( e => e.language.name == "en").flavor_text,
+                    .FirstOrDefault( e => e.language.name == "en")
+                    .flavor_text
+                    .Replace("\n", " ")
+                    .Replace("\f", " "),
                 Habitat = pokeInfoModel.habitat.name,
                 IsLegendary = pokeInfoModel.is_legendary
 
